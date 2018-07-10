@@ -25,6 +25,7 @@ router.register(r'Bookmark_Base', BookmarkBaseViewSet)
 router.register(r'Bookmark', BookmarkViewSet)
 
 urlpatterns = [
+    re_path(r'^api-auth/', views.obtain_auth_token),
     path('admin/', admin.site.urls),
     path(r'api/', include(router.urls)),
 ]
