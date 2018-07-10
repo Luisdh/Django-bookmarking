@@ -21,7 +21,22 @@ class BookmarkSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('title', 'url', 'description')
         # TODO: function create
 
+    def create(self, validated_data):
+        user = self.context['request'].user
+        bookmark = Bookmark.objects.create(
+            user=user, **validated_data
+        )
+        return bookmark
+
 
 class BookmarkViewSet(viewsets.ModelViewSet):
     serializer_class = BookmarkSerializer
     queryset = Bookmark.objects.all()
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_anonymous:
+            return Bookmark.objects.none()
+
+        else:
+            return Bookmark.objects.filter(user=user)
