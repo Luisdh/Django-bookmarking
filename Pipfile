@@ -11,6 +11,7 @@ markdown = "*"
 django-filter = "*"
 "autopep8" = "*"
 pylint = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
